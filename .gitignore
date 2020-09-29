@@ -1,2 +1,6 @@
 vendor/
 composer.lock
+
+#ignore anything that is to do with building.
+craft.xml
+src/

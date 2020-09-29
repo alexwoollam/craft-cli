@@ -7,9 +7,10 @@
     },
     "autoload": {
         "psr-4": {
-            "Craft\\": "bin/"
+            "Craft\\": "lib/"
         }
     },
+    "bin": "bin/craft",
     "license": "Apache",
     "authors": [
         {

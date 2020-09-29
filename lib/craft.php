@@ -7,22 +7,31 @@
 
 namespace Craft;
 
-require __DIR__ . '/../vendor/autoload.php';
+include_once( __DIR__ . '/Config/Get/Composer.php' );
 
 use splitbrain\phpcli\CLI;
 use splitbrain\phpcli\OPTIONS;
 
+use Craft\Config\Get\Config;
 use Craft\Make\Model;
 use Craft\Make\Controller;
 
 class Craft extends CLI {
+
     // Register Arguments.
     protected function setup( Options $options ) {
-        $options->setHelp('Docker / Composer setup');
+
+        new Config;
+
+        $options->setHelp('¬¬¬¬¬¬¬¬¬¬ CRAFT v0.0.1 ¬¬¬¬¬¬¬¬¬¬');
+
         $options->registerOption('version', 'print version', 'v');
         $options->registerOption('port', 'set a different port', 'p');
         
+        $options->registerCommand('start', 'Start the server');
+        $options->registerCommand('install', 'Install the server');
         $options->registerCommand('make:model', 'Make a model');
+        $options->registerArgument('model_name', 'Name of the model', true, 'make:model');
         $options->registerCommand('make:controller', 'Make a controller');
     }
 
@@ -30,9 +39,12 @@ class Craft extends CLI {
     protected function main( Options $options ){
         switch ($options->getCmd()) {
             case 'make:model':
-                $this->success('The make:model command was called');
+                $model_name = $options->getArgs();
+                new Model( $model_name[0] );
+                $this->success('The model \'' . $model_name[0] . '\' was created.');
                 break;
             case 'make:controller':
+                new Controller;
                 $this->success('The make:controller command was called');
                 break;
             default:
