@@ -1,0 +1,6 @@
+<?php
+/**
+ * removed extension for command-line
+ */
+
+ require __DIR__ . '/../lib/craft.php';
