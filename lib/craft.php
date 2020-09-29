@@ -32,6 +32,8 @@ class Craft extends CLI {
         $options->registerCommand('install', 'Install the server');
         $options->registerCommand('make:model', 'Make a model');
         $options->registerArgument('model_name', 'Name of the model', true, 'make:model');
+        $options->registerOption('factory', 'Add to factory', 'f', 'model_name', 'make:model');
+        $options->registerOption('route', 'Add router for model', 'r', 'model_name', 'make:model');
         $options->registerCommand('make:controller', 'Make a controller');
     }
 
@@ -44,8 +46,9 @@ class Craft extends CLI {
                 $this->success('The model \'' . $model_name[0] . '\' was created.');
                 break;
             case 'make:controller':
-                new Controller;
-                $this->success('The make:controller command was called');
+                $controller_name = $options->getArgs();
+                new Controller( $controller_name[0] );
+                $this->success('The model \'' . $controller_name[0] . '\' was created.');
                 break;
             default:
                 $this->error('No known command was called, we show the default help instead:');
