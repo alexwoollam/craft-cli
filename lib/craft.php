@@ -13,6 +13,7 @@ use splitbrain\phpcli\CLI;
 use splitbrain\phpcli\OPTIONS;
 
 use Craft\Config\Get\Config;
+use Craft\Config\Check\DependencyCheck;
 use Craft\Make\Model;
 use Craft\Make\Controller;
 
@@ -48,7 +49,7 @@ class Craft extends CLI {
             case 'make:controller':
                 $controller_name = $options->getArgs();
                 new Controller( $controller_name[0] );
-                $this->success('The model \'' . $controller_name[0] . '\' was created.');
+                $this->success('The controller \'' . $controller_name[0] . '\' was created.');
                 break;
             default:
                 $this->error('No known command was called, we show the default help instead:');

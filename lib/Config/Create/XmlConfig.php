@@ -2,6 +2,8 @@
 
 namespace Craft\Config\Create;
 
+use Craft\Config\Get\Config;
+
 class XmlConfig{
 
     public $config_location;
@@ -9,6 +11,7 @@ class XmlConfig{
     public function __construct( $location ){
         $this->config_location = $location;
         $this->message();
+        new Config;
     }
 
     public function message(){
@@ -28,6 +31,23 @@ class XmlConfig{
     public function create_config(){
         $txt = "<?xml version=\"1.0\"?>\n";
         $txt .= "<craft>\n";
+        $txt .= "\t<project\n";
+        echo "Project name? ('winterfel') : ";
+        $get_project_name = fopen ("php://stdin","r");
+        $project_name = fgets($get_project_name);
+        $project_name = trim(preg_replace('/\s\s+/', ' ', $project_name));
+        $txt .= "\t\tname='$project_name'\n";
+        echo "Version? : ";
+        $get_project_version = fopen ("php://stdin","r");
+        $project_version = fgets($get_project_version);
+        $project_version = trim(preg_replace('/\s\s+/', ' ', $project_version));
+        $txt .= "\t\tversion='$project_version'\n";
+        echo "Author? ('Arya Stark') : ";
+        $get_project_author = fopen ("php://stdin","r");
+        $project_author = fgets($get_project_author);
+        $project_author = trim(preg_replace('/\s\s+/', ' ', $project_author));
+        $txt .= "\t\tauthor='$project_author'\n";
+        $txt .= "\t/>\n";
         $txt .= "\t<source>\n";
         echo "Location of model folder? ('./src/model/') : ";
         $get_model = fopen ("php://stdin","r");
