@@ -45,6 +45,9 @@ class Config {
         foreach( $settings->source->controller->attributes() as $location ){
             $this->controller_src = $location;
         };
+        foreach( $settings->source->tests->attributes() as $location ){
+            $this->tests_src = $location;
+        };
 
     }
 
@@ -52,5 +55,6 @@ class Config {
         define( 'MODEL_SRC', $this->model_src );
         define( 'VIEW_SRC', $this->view_src );
         define( 'CONTROLLER_SRC', $this->controller_src );
+        define( 'TESTS_SRC', $this->tests_src );
     }
 }

@@ -64,6 +64,11 @@ class XmlConfig{
         $controller = fgets($get_controller);
         $controller = trim(preg_replace('/\s\s+/', ' ', $controller));
         $txt .= "\t\t<controller location='$controller'/>\n";
+        echo "Location of tests folder? (e.g. './tests/') : ";
+        $get_tests = fopen ("php://stdin","r");
+        $tests = fgets($get_tests);
+        $tests = trim(preg_replace('/\s\s+/', ' ', $tests));
+        $txt .= "\t\t<tests location='$tests'/>\n";
         $txt .= "\t</source>\n";
         $txt .= "</craft>\n";
         $generated_config = file_put_contents(

@@ -9,6 +9,7 @@ class Controller {
     public $camel_controller_name;
 
     public $controller_file;
+    public $controller_test_file;
 
     public function __construct( $name = null) {
         if ( null == $name ) {
@@ -18,6 +19,10 @@ class Controller {
             $this->controller_name = $name;
             $this->check_case( $name );
             $this->controller_file = CONTROLLER_SRC . '/' . $this->camel_controller_name . '.php';
+            $this->controller_test_file = TESTS_SRC . '/Controller/' . $this->camel_controller_name . '-test-case.php';
+            echo $this->controller_test_file;
+            die;
+            
             $this->check_controller_doesnt_exist();
         }
     }
@@ -37,6 +42,7 @@ class Controller {
     public function check_controller_doesnt_exist(){
         if ( ! file_exists ( $this->controller_file ) ){
             $this->make_controller();
+            $this->make_test();
         } else {
             echo "This controller already exists... overwrite? !!CAN'T BE UNDONE!!  (Y/n)";
             $handle = fopen ("php://stdin","r");
@@ -47,6 +53,7 @@ class Controller {
             } else {
                 $this->delete_controller();
                 $this->make_controller();
+                $this->make_test();
             }
             die;
         }
@@ -60,11 +67,56 @@ class Controller {
         $txt = "<?php\n";
         $txt .= "/**\n";
         $txt .= " * $this->camel_controller_name Controller\n";
+        $txt .= " *\n";
+        $txt .= " * @package projectname\n";
         $txt .= " */\n";
         $txt .= "\n";
-        $txt .= "namespace App\\Controller;";
+        $txt .= "namespace App\\Controller;\n";
         $txt .= "\n";
+        $txt .= "class $this->camel_controller_name {\n";
+        $txt .= "\n";
+        $txt .= "/**\n";
+        $txt .= " * Class constructor.\n";
+        $txt .= " */\n";
+        $txt .= "\tpublic function __construct() {\n";
+        $txt .= "\n";
+        $txt .= "\t}\n";
+        $txt .= "\n";
+        $txt .= "}\n";
+
+
+
+
         $generated_controller = file_put_contents(
+            $this->controller_file,
+            $txt.PHP_EOL,
+            FILE_APPEND | LOCK_EX
+        );
+    }
+
+    
+    public function make_test(){
+        $txt = "<?php\n";
+        $txt .= "/**\n";
+        $txt .= " * $this->camel_controller_name Controller\n";
+        $txt .= " *\n";
+        $txt .= " * @package projectname\n";
+        $txt .= " */\n";
+        $txt .= "\n";
+        $txt .= "namespace App\\Controller;\n";
+        $txt .= "\n";
+        $txt .= "class $this->camel_controller_name {\n";
+        $txt .= "\n";
+        $txt .= "/**\n";
+        $txt .= " * Class constructor.\n";
+        $txt .= " */\n";
+        $txt .= "\tpublic function __construct() {\n";
+        $txt .= "\n";
+        $txt .= "\t}\n";
+        $txt .= "\n";
+        $txt .= "}\n";
+
+        $generated_tests = file_put_contents(
             $this->controller_file,
             $txt.PHP_EOL,
             FILE_APPEND | LOCK_EX
