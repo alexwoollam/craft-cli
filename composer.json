@@ -1,6 +1,6 @@
 {
     "name": "proagrica/craft",
-    "description": "PHPCli for Proagrica MVC WordPress framework",
+    "description": "PHPCli for MVC WordPress framework",
     "type": "library",
     "require": {
         "splitbrain/php-cli": "^1.1"
