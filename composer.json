@@ -1,5 +1,5 @@
 {
-    "name": "proagrica/craft",
+    "name": "w5m/craft",
     "description": "PHPCli for MVC WordPress framework",
     "type": "library",
     "require": {
